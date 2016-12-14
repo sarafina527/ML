@@ -1,0 +1,5 @@
+[code, responseBody] = system(sprintf('echo jsonBody=%s | curl -k -X POST -d @- %s', body, submissionUrl));
+
+
+from£º
+https://www.coursera.org/learn/machine-learning/discussions/forums/8LDwTL2SEeSEJSIACyEKsQ/threads/_et09TGlEea-YhKdNUv9pQ
