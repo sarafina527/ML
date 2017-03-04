@@ -6,5 +6,5 @@ handles.currentSimGraphType      = handles.SimGraphType;
 handles.currentSimGraphNeighbors = get(handles.edtSimGraphNeighbors, 'String');
 handles.currentSimGraphEps       = get(handles.edtSimGraphEps, 'String');
 handles.currentSimGraphSigma     = get(handles.edtSimGraphSigma, 'String');
-
+handles.currentSimGraphThreshold = get(handles.editThreshold, 'String');
 guidata(hObject, handles);

@@ -15,6 +15,7 @@ handles.currentSimGraphEps        = 0;
 handles.currentSimGraphSigma      = 0;
 handles.currentSimGraphNeighbors  = 0;
 handles.currentSimGraphComponents = 0;
+handles.currentSimGraphThreshold  = 0;
 
 handles.FileName = '';
 handles.PathName = '';
@@ -26,6 +27,7 @@ handles.defaultEps              = 1;
 handles.defaultSigma            = 1;
 handles.defaultClusterType      = 2;
 handles.defaultNumberOfClusters = 2;
+handles.defaultSimGraphThreshold  = 0;
 
 handles.DataNonLabeledExt            = '.nld';
 handles.DataOpenDialogTypes          = {'*.csv; *.nld', 'All Files (*.csv, *.nld)';
@@ -66,6 +68,9 @@ set(handles.edtSimGraphEps, 'String', ...
 
 set(handles.edtSimGraphSigma, 'String', ...
     num2str(handles.defaultSigma));
+
+set(handles.editThreshold, 'String', ...
+    num2str(handles.defaultSimGraphThreshold));
 
 % Check if export_fig is installed
 fprintf('Spectral Clustering: Checking for export_fig...\n');

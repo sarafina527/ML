@@ -252,7 +252,8 @@ switch handles.currentSimGraphType
             handles.Data(selectedDimensions, :), ...
             Param, ...
             handles.currentSimGraphType - 1, ...
-            str2double(handles.currentSimGraphSigma));
+            str2double(handles.currentSimGraphSigma),...
+            str2double(handles.currentSimGraphThreshold));
 end
 handles.timeSimGraph = toc(handles.timeSimGraph);
 
@@ -626,3 +627,33 @@ function lstPlotDimensions_Callback(~, ~, ~)
 function chkPlotSGColored_Callback(~, ~, ~)
 
 function chkPlotDisplayTime_Callback(~, ~, ~)
+
+
+
+function editThreshold_Callback(hObject, eventdata, handles)
+% hObject    handle to editThreshold (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of editThreshold as text
+%        str2double(get(hObject,'String')) returns contents of editThreshold as a double
+newVal = get(hObject, 'String');
+newVal = strrep(newVal, ',', '.');
+newVal = str2double(newVal);
+if isnan(newVal) || newVal < eps
+    set(hObject, 'String', num2str(handles.defaultSimGraphThreshold));
+end
+
+guidata(hObject, handles);
+
+% --- Executes during object creation, after setting all properties.
+function editThreshold_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to editThreshold (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end

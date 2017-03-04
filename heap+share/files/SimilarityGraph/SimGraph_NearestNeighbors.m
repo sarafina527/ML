@@ -1,4 +1,4 @@
-function W = SimGraph_NearestNeighbors(M, k, Type, sigma)
+function W = SimGraph_NearestNeighbors(M, k, Type, sigma,threshold)
 % SIMGRAPH_NEARESTNEIGHBORS Returns kNN similarity graph
 %   Returns adjacency matrix for an k-Nearest Neighbors 
 %   similarity graph
@@ -35,7 +35,7 @@ indj = zeros(1, k * n);
 inds = zeros(1, k * n);
 C = zeros(n,n);
 % threshold [0,n]
-threshold = 5;
+%threshold
 
 for ii = 1:n
     % Compute i-th column of distance matrix
@@ -65,13 +65,13 @@ for ii = 1:n
     inds(1, (ii-1)*k+1:ii*k) = dist(nn);
 end
 
+indsn = inds;
 for i=1:k*n
     if C(indi(i),indj(i))<threshold
-        inds(i) = inds(i)/100;
+        %inds(i) = inds(i)/100;
+        inds(i) = 0;
     end
 end
-% Create sparse matrix
-W = sparse(indi, indj, inds, n, n);
 % for i = 1:n
 %     for j = i:n
 %         if C(i,j)<threshold
@@ -81,6 +81,29 @@ W = sparse(indi, indj, inds, n, n);
 % end
 % sc = sparse(C);
 % W(sc<threshold) = 0;
+
+
+%chuli liqundian
+for i=1:n
+    if sum(inds(indi==i))==0
+        m = min(indsn((indi==i)&(indsn~=0)));
+        %j = find(indsn==m);
+        if isempty(m)~=1
+            j=find((indsn==m)&(indi==i));
+            inds(j) = m;
+        end
+    end
+    if sum(inds(indj==i))==0
+        m = min(indsn((indj==i)&(indsn~=0)));
+        if isempty(m)~=1
+            j = find((indsn==m)&(indj==i));
+            inds(j) = m;
+        end
+    end
+end
+
+% Create sparse matrix
+W = sparse(indi, indj, inds, n, n);
 clear indi indj inds dist s O C threshold;
 
 % Construct either normal or mutual graph
